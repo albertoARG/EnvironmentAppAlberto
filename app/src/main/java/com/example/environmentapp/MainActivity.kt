@@ -1,12 +1,12 @@
 package com.example.environmentapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,7 +27,9 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding),
                         contentAlignment = Alignment.Center
                     ) {
-                        Greeting(name = "Android")
+                        MainScreen(
+                            onNavigateToSecond = { startActivity(Intent(this@MainActivity, SecondActivity::class.java)) }
+                        )
                     }
                 }
             }
@@ -36,22 +38,16 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello world!",
-        modifier = modifier
-    )
+fun MainScreen(onNavigateToSecond: () -> Unit) {
+    Button(onClick = onNavigateToSecond) {
+        Text("GO TO SECOND ACTIVITY")
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainScreenPreview() {
     EnvironmentAppTheme {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Greeting("Android")
-        }
+        MainScreen {}
     }
 }
